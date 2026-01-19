@@ -7,7 +7,6 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    args '-u root'
                 }
             }
 
@@ -16,6 +15,8 @@ pipeline {
                     ls -la
                     node -v
                     npm -v
+
+                    rm -rf node_modules
                     npm ci
                     npm run build
                     ls -la
@@ -39,21 +40,21 @@ pipeline {
                 '''
             }
         }
-        stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+        // stage('Deploy') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
 
-            steps {
-                sh '''
-                    npm install netlify-cli
+        //     steps {
+        //         sh '''
+        //             npm install netlify-cli
                     
-                '''
-            }
-        }
+        //         '''
+        //     }
+        // }
     }
 
     post {
