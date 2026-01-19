@@ -92,7 +92,6 @@ pipeline {
                     npm install netlify-cli --save-dev
                     
                     echo "Deploying to Netlify site ID: $NETLIFY_SITE_ID"
-                    netlify login:auth --auth $NETLIFY_AUTH_TOKEN
                     netlify status
                 '''
             }
