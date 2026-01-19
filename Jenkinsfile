@@ -85,6 +85,7 @@ pipeline {
             steps {
                 sh '''
                     whoami
+                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
                     npm install netlify-cli
                     
                 '''
