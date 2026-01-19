@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Fixing permissions..."
-                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
+                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app/node_modules/playwright
                 '''
             }
         }
@@ -46,7 +46,6 @@ pipeline {
 
             steps {
                 sh '''
-                    ls -la
                     node -v
                     npm -v
 
@@ -86,9 +85,7 @@ pipeline {
             steps {
                 sh '''
                     whoami
-                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
                     npm install netlify-cli
-                    
                 '''
             }
         }
