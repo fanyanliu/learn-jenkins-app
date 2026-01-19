@@ -2,6 +2,22 @@ pipeline {
     agent any
 
     stages {
+        stage('Fix permissions') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                    args '-u root'
+                }
+            }
+
+            steps {
+                sh '''
+                    echo "Fixing permissions..."
+                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
+                '''
+            }
+        }
         stage('Clean') {
             agent {
                 docker {
