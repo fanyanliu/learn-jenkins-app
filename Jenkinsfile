@@ -1,7 +1,24 @@
 pipeline {
     agent any
 
-    stages {        
+    stages {
+        stage('Clean') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                    args '-u root'
+                }
+            }
+
+            steps {
+                sh '''
+                    echo "Cleaning workspace..."
+                    rm -rf node_modules
+                '''
+            }
+        }
+
         stage('Build') {
             agent {
                 docker {
@@ -41,21 +58,21 @@ pipeline {
                 '''
             }
         }
-        // stage('Deploy') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
 
-        //     steps {
-        //         sh '''
-        //             npm install netlify-cli
+            steps {
+                sh '''
+                    npm install netlify-cli
                     
-        //         '''
-        //     }
-        // }
+                '''
+            }
+        }
     }
 
     post {
