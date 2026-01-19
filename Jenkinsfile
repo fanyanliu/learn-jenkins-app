@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Fixing permissions..."
-                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
+                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app/node_modules/playwright
                 '''
             }
         }
@@ -79,16 +79,14 @@ pipeline {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
-                    args '-u root'
+                    // args '-u root'
                 }
             }
 
             steps {
                 sh '''
                     whoami
-                    chown -R node:node /var/jenkins_home/workspace/learn-jenkins-app
                     npm install netlify-cli
-                    
                 '''
             }
         }
