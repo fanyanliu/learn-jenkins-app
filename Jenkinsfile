@@ -84,6 +84,7 @@ pipeline {
 
             steps {
                 sh '''
+                    whoami
                     npm install netlify-cli
                     
                 '''
